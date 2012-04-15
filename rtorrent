@@ -48,16 +48,16 @@ SOCKET="/var/run/rtorrent/rpc.socket"
 
 ## Check if the socket exists and if it exists delete it.
 delete_socket() {
-	if [[ -e $SOCKET ]]; then
-		rm -f $SOCKET
-	fi
+    if [[ -e $SOCKET ]]; then
+        rm -f $SOCKET
+    fi
 }
 
 case "$1" in
-	## Start rtorrent in the background.
+    ## Start rtorrent in the background.
     start)
         echo "Starting rtorrent."
-		delete_socket
+        delete_socket
         start-stop-daemon --start --background --oknodo \
             --pidfile "$PIDFILE" --make-pidfile \
             --chuid $USER \
@@ -69,7 +69,7 @@ case "$1" in
         echo "rtorrent started successfully."
         ;;
 
-	## Stop rtorrent.
+    ## Stop rtorrent.
     stop)
         echo "Stopping rtorrent."
         start-stop-daemon --stop --oknodo --pidfile "$PIDFILE"
@@ -77,18 +77,18 @@ case "$1" in
             echo "Error: failed to stop rtorrent process."
             exit 1
         fi
-		delete_socket
+        delete_socket
         echo "rtorrent stopped successfully."
         ;;
 
-	## Restart rtorrent.
+    ## Restart rtorrent.
     restart)
         "$0" stop
         sleep 1
         "$0" start || exit 1
         ;;
 
-	## Print usage information if the user gives an invalid option.
+    ## Print usage information if the user gives an invalid option.
     *)
         echo "Usage: $0 [start|stop|restart]"
         exit 1
