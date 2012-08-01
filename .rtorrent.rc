@@ -1,14 +1,7 @@
 # ----------------------------------------------------------------------
 # ~/.rtorrent.rc
 #
-# Example rtorrent configuration for high performance seedboxes. The
-# settings below are made for a user with the name "killjoy". Adopt the
-# paths to fit your needs. I'm seeding way over 1,000 torrents without
-# any problems with this configuration file (yes, single rtorrent
-# instance).
-#
-# This configuration is ready for usage together with rutorrent and
-# especially tailored for the usage with private trackers.
+# rtorrent configuration
 #    ____                _ _
 #   / ___|  ___  ___  __| | |__   _____  __
 #   \___ \ / _ \/ _ \/ _` | '_ \ / _ \ \/ /
@@ -24,13 +17,14 @@
 
 max_downloads_global             = 0
 max_uploads_global               = 0
-min_peers                        = 50
-max_peers                        = 300
-min_peers_seed                   = -1
-max_peers_seed                   = -1
-max_uploads                      = 150
+min_peers                        = 500
+max_peers                        = 1000
+min_peers_seed                   = 500
+max_peers_seed                   = 1000
+max_uploads                      = 1000
 download_rate                    = 0
 upload_rate                      = 0
+tracker_numwant                  = 250
 
 # ----------------------------------------------------------------------
 # Directories
@@ -45,7 +39,7 @@ encoding_list                    = UTF-8
 # Network
 # ----------------------------------------------------------------------
 
-port_range                       = 50000-52999
+port_range                       = 51777-51780
 scgi_local                       = /var/run/rtorrent/rpc.socket
 network.http.ssl_verify_peer.set = 0
 port_random                      = yes
@@ -56,16 +50,15 @@ network.max_open_sockets.set     = 1536
 network.http.max_open.set        = 48
 network.send_buffer.size.set     = 4M
 network.receive_buffer.size.set  = 4M
-dht                              = off
-peer_exchange                    = no
+network.xmlrpc.size_limit.set    = 4M
+dht                              = auto
+dht_port                         = 6881
+peer_exchange                    = yes
 
 # ----------------------------------------------------------------------
 # Hash
 # ----------------------------------------------------------------------
 
 check_hash                       = no
-hash_read_ahead                  = 30
-hash_interval                    = 5
-hash_max_tries                   = 5
 pieces.preload.type.set          = 1
-max_memory_usage                 = 1800M
+max_memory_usage                 = 5000M
